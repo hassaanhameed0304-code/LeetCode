@@ -1,0 +1,27 @@
+#include <stdio.h>
+
+int reverse(int x) {
+    int rev = 0;
+
+    while (x != 0) {
+        int digit = x % 10;
+        x /= 10;
+
+        // Check for overflow BEFORE multiplying by 10
+        if (rev > 214748364 || (rev == 214748364 && digit > 7)) 
+            return 0; // Overflow
+        if (rev < -214748364 || (rev == -214748364 && digit < -8)) 
+            return 0; // Underflow
+
+        rev = rev * 10 + digit;
+    }
+
+    return rev;
+}
+
+int main() {
+    int x;
+    scanf("%d", &x);
+    printf("%d\n", reverse(x));
+    return 0;
+}
