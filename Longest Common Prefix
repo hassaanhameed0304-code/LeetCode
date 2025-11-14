@@ -1,0 +1,15 @@
+char* longestCommonPrefix(char** strs, int strsSize){
+    if(strsSize == 0) return "";
+    int idx = 0;
+    while(strs[0][idx]){
+        char c = strs[0][idx];
+        for(int i = 1; i < strsSize; i++){
+            if(strs[i][idx] != c) {
+                strs[0][idx] = '\0';
+                return strs[0];
+            }
+        }
+        idx++;
+    }
+    return strs[0];
+}
