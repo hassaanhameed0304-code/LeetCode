@@ -1,0 +1,38 @@
+char* multiply(char* num1, char* num2) {
+    if (num1[0] == '0' || num2[0] == '0')
+        return strdup("0");
+
+    int len1 = strlen(num1);
+    int len2 = strlen(num2);
+    int size = len1 + len2;
+
+    int* result = calloc(size, sizeof(int));
+
+    // Multiply each digit like manual multiplication
+    for (int i = len1 - 1; i >= 0; i--) {
+        for (int j = len2 - 1; j >= 0; j--) {
+            int mul = (num1[i] - '0') * (num2[j] - '0');
+            int sum = result[i + j + 1] + mul;
+
+            result[i + j + 1] = sum % 10;
+            result[i + j] += sum / 10;
+        }
+    }
+
+    // Convert result array to string
+    char* ans = malloc(size + 1);
+    int index = 0;
+
+    // Skip leading zeros
+    int k = 0;
+    while (k < size && result[k] == 0)
+        k++;
+
+    while (k < size)
+        ans[index++] = result[k++] + '0';
+
+    ans[index] = '\0';
+
+    free(result);
+    return ans;
+}
