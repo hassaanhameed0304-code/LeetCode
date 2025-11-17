@@ -1,0 +1,23 @@
+char* convert(char* s, int numRows) {
+    if (numRows == 1) return s;
+
+    int len = 0;
+    while (s[len] != '\0') len++;
+
+    char* result = (char*)malloc(len + 1);
+    int index = 0;
+    int cycle = 2 * numRows - 2;
+
+    for (int r = 0; r < numRows; r++) {
+        for (int i = r; i < len; i += cycle) {
+            result[index++] = s[i];
+            int diag = i + cycle - 2 * r;
+            if (r != 0 && r != numRows - 1 && diag < len) {
+                result[index++] = s[diag];
+            }
+        }
+    }
+
+    result[index] = '\0';
+    return result;
+}
